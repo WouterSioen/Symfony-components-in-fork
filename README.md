@@ -11,9 +11,8 @@ some more blabla
 
 * Routing
 * Dependency injection container
-* commands
-* event disptacher
-* monolog
+* Console
+* Event Dispatcher
 * functional tests
 
 ---
@@ -25,6 +24,7 @@ some more blabla
 * Finder
 * HttpFoundation
 * HttpKernel
+* Monolog
 * Yaml
 
 ---
@@ -102,7 +102,7 @@ Factory: used a lot for doctrine repositories
 
 ---
 
-## Symfony commands
+## Console
 
 Used by
 
@@ -158,6 +158,10 @@ app/console
     $application = new Application($kernel);
     $application->add(new \Common\Command\HelloWorldCommand());
     $application->run($input);
+
+---
+
+## Event dispatcher
 
 ---
 
