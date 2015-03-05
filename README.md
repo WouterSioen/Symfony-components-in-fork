@@ -56,3 +56,35 @@ Custom/Application/Class.php
             return new Response('Hello world');
         }
     }
+
+## Dependency injection container
+
+> Put simply, a Service is any PHP object that performs some sort of "global" task.
+
+Why? Some theory:
+
+* Coupling
+* Testability
+* Dependency inversion
+
+    app/console container:debug
+
+/app/config/routing.yml
+
+    services:
+        paginator:
+            class: Common\Paginator
+            arguments: [ "@logger" ]
+
+/src/Frontend/Blog/Actions/Index.php
+
+    $this->tpl->assign(
+        'pagination',
+        $this->get('paginator')->paginate($blogPosts)
+    );
+
+
+## Resources
+
+http://symfony.com/doc/current/index.html
+https://speakerdeck.com/ronnylt/dic-to-the-limit-desymfonyday-barcelona-2014
