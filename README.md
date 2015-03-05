@@ -57,6 +57,8 @@ Custom/Application/Class.php
         }
     }
 
+---
+
 ## Dependency injection container
 
 > Put simply, a Service is any PHP object that performs some sort of "global" task.
@@ -67,7 +69,11 @@ Why? Some theory:
 * Testability
 * Dependency inversion
 
+---
+
     app/console container:debug
+
+---
 
 /app/config/routing.yml
 
@@ -83,6 +89,20 @@ Why? Some theory:
         $this->get('paginator')->paginate($blogPosts)
     );
 
+---
+
+Factory: used a lot for doctrine repositories
+
+/app/config/routing.yml
+
+    services:
+        faker:
+            class: Faker\Generator
+            factory_class: Faker\Factory
+            factory_method: create
+            arguments: [ en_US ]
+
+---
 
 ## Resources
 
