@@ -42,8 +42,6 @@ Want to add a custom application?
 
 Custom/Application/Class.php
 
-    <?php
-
     namespace Custom\Application;
 
     use Symfony\Component\HttpFoundation\Request;
@@ -101,6 +99,49 @@ Factory: used a lot for doctrine repositories
             factory_class: Faker\Factory
             factory_method: create
             arguments: [ en_US ]
+
+---
+
+## Symfony commands
+
+Used by
+
+* Composer
+* Behat
+* phpspec
+* ...
+
+---
+
+Common/Command/HelloWorldCommand.php
+
+    namespace Common\Command;
+
+    use Symfony\Component\Console\Command\Command;
+    use Symfony\Component\Console\Input\InputInterface;
+    use Symfony\Component\Console\Output\OutputInterface;
+
+    class HelloWorldCommand extends Command
+    {
+        protected function configure()
+        {
+            $this
+                ->setName('hello:world')
+                ->setDescription('Say hello to the world')
+            ;
+        }
+
+        protected function execute(InputInterface $input, OutputInterface $output)
+        {
+            $output->writeln('Hello meetup!');
+        }
+    }
+
+app/console
+
+    $application = new Application($kernel);
+    $application->add(new \Common\Command\HelloWorldCommand());
+    $application->run($input);
 
 ---
 
