@@ -113,6 +113,22 @@ Used by
 
 ---
 
+some useful included commands
+
+    # list all commands
+    app/console
+
+    # start a php server that users the current folder as docroot
+    app/console server:run --docroot=.
+
+    # list all services in the DIC
+    app/console container:debug
+
+    # list all loaded routes
+    app/console router:debug
+
+---
+
 Common/Command/HelloWorldCommand.php
 
     namespace Common\Command;
