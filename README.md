@@ -163,6 +163,140 @@ app/console
 
 ## Event dispatcher
 
+Easy to hook into other modules without coupling.
+
+* Now: remove the search module and half the backend breaks.
+* Using events: remove the search module and the search indices will just not be saved
+
+---
+
+### Theory
+
+Observer pattern
+
+---
+
+### Implementation
+
+Optional: module/bundle overview of events
+
+```php
+<?php
+
+namespace Backend\Modules\Blog;
+
+final class BlogEvents
+{
+    /**
+     * The form.submitted event is thrown each time a formbuilder instance is
+     * submitted.
+     *
+     * The event listener receives an
+     * Backend\Modules\Blog\Event\PostSavedEvent instance.
+     *
+     * @var string
+     */
+    const POST_SAVED = 'blog.post_saved';
+}
+```
+
+---
+
+### Implementation
+
+Event containing the needed data (immutable object)
+
+```php
+<?php
+
+namespace Backend\Modules\Blog\Event;
+
+use Symfony\Component\EventDispatcher\Event;
+
+class PostSavedEvent extends Event
+{
+    protected $post;
+
+    public function __construct($post)
+    {
+        $this->post = $post;
+    }
+
+    public function getPost()
+    {
+        return $this->post;
+    }
+}
+```
+
+---
+
+### Implementation
+
+Event subscriber
+
+```php
+<?php
+
+namespace Backend\Modules\Search\EventListener;
+
+use Backend\Modules\Blog\Event\PostAddedEvent;
+use Backend\Modules\Search\Engine\Model as SearchModel;
+
+class SearchIndexListener
+{
+    protected $module;
+
+    public function __construct($module)
+    {
+        $this->module = $module;
+    }
+
+    public function onPostSaved(PostAddedEvent $event)
+    {
+        $post = $event->getPost();
+
+        SearchModel::saveIndex(
+            $this->module,
+            $post['id'],
+            array(
+                'title' => $post['title'],
+                'text' => $post['text'],
+            )
+        );
+    }
+}
+```
+
+---
+
+### Implementation
+
+Hook the listener to the event
+
+```yaml
+services:
+    blog.search_indexer:
+        class: Backend\Modules\Search\EventListener\BlogPostSearchIndexListener
+        arguments:
+            - "Blog"
+        tags:
+            - { name: kernel.event_listener, event: blog.post_saved, method: onPostSaved }
+```
+
+---
+
+### Implementation
+
+Dispatching the event
+
+```php
+$this->get('event_dispatcher')->dispatch(
+    BlogEvents::POST_SAVED,
+    new PostSavedEvent($post)
+);
+```
+
 ---
 
 ## Resources
