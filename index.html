@@ -14,6 +14,16 @@
         font-weight: normal;
       }
       .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .sumocoders {
+        background: url(img/sumocoders.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+      }
+      .sumocoders * {
+        font-size: 0px !important;
+      }
     </style>
   </head>
   <body>
@@ -29,7 +39,8 @@
       var slideshow = remark.create();
 
       // add the classes here, so we don't mess up our markdown file
-      $('.remark-slide-content:first').addClass('center middle');
+      $('.remark-slides-area .remark-slide-content:first').addClass('center middle');
+      $('.remark-slides-area .remark-slide-content:eq(2)').addClass('sumocoders');
     </script>
   </body>
 </html>
