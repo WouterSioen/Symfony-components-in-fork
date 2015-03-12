@@ -23,8 +23,13 @@
     <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
     <script>
       $.ajaxSetup({async:false});
+
+      // load the readme file. This makes it easier to read my presentation without setup
       $("#source").load("README.md");
       var slideshow = remark.create();
+
+      // add the classes here, so we don't mess up our markdown file
+      $('.remark-slide-content:first').addClass('center middle');
     </script>
   </body>
 </html>

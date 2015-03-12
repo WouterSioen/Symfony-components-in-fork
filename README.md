@@ -1,4 +1,6 @@
-# Effectively using the Symfony components in Fork.
+# Effectively using the Symfony components in Fork CMS.
+
+---
 
 ## Introduction
 
