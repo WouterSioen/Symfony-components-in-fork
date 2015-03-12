@@ -293,6 +293,20 @@ $this->get('event_dispatcher')->dispatch(
 
 ---
 
+## Functional tests
+
+* refactorings: make sure nothing breaks
+* confidence in code
+* $maintainability++
+
+---
+
+### Implementation
+
+
+
+---
+
 ## Resources
 
 http://symfony.com/doc/current/index.html
