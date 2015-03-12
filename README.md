@@ -303,7 +303,115 @@ $this->get('event_dispatcher')->dispatch(
 
 ### Implementation
 
+```php
+namespace Backend\Modules\Events\DataFixtures;
 
+class LoadEvents
+{
+    public function load(\SpoonDatabase $database)
+    {
+        $metaId = $database->insert(
+            'meta',
+            array('url' => 'event-for-functional-tests')
+        );
+
+        $database->insert(
+            'events',
+            array(
+                'language' => 'en',
+                'meta_id' => $metaId,
+                'title' => 'Event for functional tests',
+                'start_date' => '2015-03-26',
+                'start_hour' => '19:00,
+            )
+        );
+    }
+}
+```
+
+---
+
+### Implementation
+
+```php
+namespace Frontend\Modules\Events\Tests\Actions;
+
+use Common\WebTestCase;
+
+class IndexText extends WebTestCase
+{
+    public function testIndexContainsEvents()
+    {
+        $client = static::createClient();
+
+        $this->loadFixtures(
+            $client,
+            array(
+                'Backend\Modules\Events\DataFixtures\LoadEvents',
+            )
+        );
+
+        $client->request('GET', '/en/events');
+        $this->assertEquals(
+            200,
+            $client->getResponse()->getStatusCode()
+        );
+        $this->assertContains(
+            'Event for functional tests',
+            $client->getResponse()->getContent()
+        );
+    }
+}
+```
+
+---
+
+### Implementation
+
+```php
+namespace Frontend\Modules\Events\Tests\Actions;
+
+use Common\WebTestCase;
+
+class IndexText extends WebTestCase
+{
+    public function testNonExistingPageGives404()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/en/events', array('page' => 34));
+        $this->assertIs404($client);
+    }
+}
+```
+
+---
+
+Useful assertions
+
+```php
+// assert url after redirect (clicking a link/submitting a form)
+$this->assertStringEndsWith(
+    '/en/events/detail/event-for-functional-tests',
+    $client->getHistory()->current()->getUri()
+);
+```
+
+```php
+// test that the page title contains some words
+$this->assertStringStartsWith(
+    'Event for functional tests',
+    $crawler->filter('title')->text()
+);
+```
+
+```php
+// assert that the page does not contain (have 0 occurences) of
+$this->assertEquals(
+    0,
+    $crawler->filter('html:contains("Event for functional tests")')->count()
+);
+```
 
 ---
 
