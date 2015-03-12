@@ -13,7 +13,7 @@ some more blabla
 * Dependency injection container
 * Console
 * Event Dispatcher
-* functional tests
+* Functional tests
 
 ---
 
@@ -181,8 +181,6 @@ Observer pattern
 Optional: module/bundle overview of events
 
 ```php
-<?php
-
 namespace Backend\Modules\Blog;
 
 final class BlogEvents
@@ -207,8 +205,6 @@ final class BlogEvents
 Event containing the needed data (immutable object)
 
 ```php
-<?php
-
 namespace Backend\Modules\Blog\Event;
 
 use Symfony\Component\EventDispatcher\Event;
@@ -236,8 +232,6 @@ class PostSavedEvent extends Event
 Event subscriber
 
 ```php
-<?php
-
 namespace Backend\Modules\Search\EventListener;
 
 use Backend\Modules\Blog\Event\PostAddedEvent;
