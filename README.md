@@ -7,7 +7,7 @@ some more blabla
 
 ---
 
-## What topics will we talk about
+## Topics we will talk about
 
 * Routing
 * Dependency injection container
@@ -17,7 +17,7 @@ some more blabla
 
 ---
 
-## What topics won't we talk about
+## Topics we (probably) won't talk about
 
 * Debug
 * Filesystem
