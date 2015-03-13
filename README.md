@@ -65,7 +65,7 @@
 custom_application:
     path:/custom/application
     defaults:
-        _controller: /Custom/Application/Controller::helloWorldAction
+        _controller: /Custom/Controller::helloWorldAction
 ```
 
 ---
@@ -73,8 +73,8 @@ custom_application:
 ## Routing: implementation
 
 ```php
-// Custom/Application/Class.php
-namespace Custom\Application;
+// Custom/Class.php
+namespace Custom;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -142,7 +142,10 @@ class Database
     {
         // execute the query
 
-        $this->logger->info('query executed', array($query, $parameters));
+        $this->logger->info(
+            'query executed',
+            array($query, $parameters)
+        );
     }
 }
 ```

@@ -10,6 +10,9 @@ h1, h2, h3 {
   font-weight: 800;
   color: #0A6076;
 }
+.remark-code {
+  font-size: 22px;
+}
 .remark-slide-content {
   font-size: 30px;
   padding: 1em 3em;
