@@ -90,9 +90,13 @@ class Controller
 
 ---
 
-## Dependency injection container
+## Service container
 
 > Put simply, a Service is any PHP object that performs some sort of "global" task.
+
+---
+
+## Service container: theory
 
 Why? Some theory:
 
