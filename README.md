@@ -2,7 +2,7 @@
 
 ---
 
-## I'm Wouter
+## Hi, I'm Wouter
 
 ![Sumo Wouter](img/Sumo_Wouter.png)
 
