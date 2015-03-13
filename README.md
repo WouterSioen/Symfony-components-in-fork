@@ -46,22 +46,34 @@
 
 ---
 
-## Routing
+## Routing: Front controller
 
-Want to add a custom application?
+![Request flow (without routing)](img/request-flow-short.png)
 
-/app/config/routing.yml
+---
+
+## Routing: Front controller
+
+![Request flow (with routing)](img/request-flow.png)
+
+---
+
+## Routing: implementation
 
 ```yaml
+# /app/config/routing.yml
 custom_application:
     path:/custom/application
     defaults:
         _controller: /Custom/Application/Controller::helloWorldAction
 ```
 
-Custom/Application/Class.php
+---
+
+## Routing: implementation
 
 ```php
+// Custom/Application/Class.php
 namespace Custom\Application;
 
 use Symfony\Component\HttpFoundation\Request;
