@@ -9,7 +9,15 @@ some more blabla
 
 ---
 
-## Sumocoders
+## I work at Sumocoders
+
+---
+
+![I mainly use Symfony](img/symfony.png)
+
+---
+
+# I'm a Fork core developer
 
 ---
 

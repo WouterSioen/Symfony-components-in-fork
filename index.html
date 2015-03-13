@@ -15,15 +15,28 @@
         color: #0A6076;
       }
       .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .image-replace * {
+        font-size: 0px !important;
+      }
       .sumocoders {
         background: url(img/sumocoders.jpg) no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
+        -webkit-background-size: contain;
+        -moz-background-size: contain;
+        -o-background-size: contain;
+        background-size: contain;
       }
-      .sumocoders * {
-        font-size: 0px !important;
+      .symfony {
+        background: #000
+      }
+      .symfony img {
+        max-width: 80%;
+      }
+      .fork {
+        background: url(img/fork.png) no-repeat center center fixed;
+        -webkit-background-size: contain;
+        -moz-background-size: contain;
+        -o-background-size: contain;
+        background-size: contain;
       }
     </style>
   </head>
@@ -41,7 +54,9 @@
 
       // add the classes here, so we don't mess up our markdown file
       $('.remark-slides-area .remark-slide-content:first').addClass('center middle');
-      $('.remark-slides-area .remark-slide-content:eq(2)').addClass('sumocoders');
+      $('.remark-slides-area .remark-slide-content:eq(2)').addClass('sumocoders image-replace');
+      $('.remark-slides-area .remark-slide-content:eq(3)').addClass('symfony image-replace center middle');
+      $('.remark-slides-area .remark-slide-content:eq(4)').addClass('fork image-replace');
     </script>
   </body>
 </html>
