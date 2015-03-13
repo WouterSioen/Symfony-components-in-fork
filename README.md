@@ -24,7 +24,7 @@
 
 ---
 
-## What topics will we talk about
+## Topics
 
 * Routing
 * Dependency injection container
@@ -34,7 +34,7 @@
 
 ---
 
-## What topics won't we talk about
+## Topics we won't talk about
 
 * Debug
 * Filesystem
