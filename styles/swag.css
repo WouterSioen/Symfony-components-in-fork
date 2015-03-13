@@ -2,13 +2,28 @@
 @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
 @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
 
-body { font-family: 'Droid Serif'; }
+body {
+  font-family: 'Droid Serif';
+}
 h1, h2, h3 {
   font-family: 'Open Sans';
   font-weight: 800;
   color: #0A6076;
 }
-.remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+.remark-slide-content {
+  font-size: 30px;
+  padding: 1em 3em;
+}
+.remark-slide-content h2 {
+  font-size: 50px;
+}
+.remark-code, .remark-inline-code {
+  font-family: 'Ubuntu Mono';
+}
+.remark-slide-number {
+  display: none;
+}
+
 .image-replace * {
   font-size: 0px !important;
 }
