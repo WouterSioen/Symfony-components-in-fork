@@ -61,7 +61,7 @@
 ## Routing: implementation
 
 ```yaml
-# /app/config/routing.yml
+# app/config/routing.yml
 custom_application:
     path:/custom/application
     defaults:
@@ -96,34 +96,85 @@ class Controller
 
 ---
 
-## Service container: theory
+## DIC: Dependency injection
 
-Why? Some theory:
-
-* Coupling
-* Testability
-* Dependency inversion
+> Dependency injection is a _design pattern_ to achieve depencency inversion.
 
 ---
 
-```bash
-app/console container:debug
+## DIC: Dependency inversion
+
+SOLID principles
+
+* Single responsibility
+* Open-Closed
+* Liskov Substitution
+* Interface Segregation
+* __Dependency inversion__
+
+---
+
+## DIC: Dependency inversion
+
+> High-level modules should not depend on low-level modules. Both should depend on abstractions.
+
+<!-- -->
+
+> Abstractions should not depend on details. Details should depend on abstractions.
+>
+> -- Robert C. Martin
+
+---
+
+## DIC: dependency inversion
+
+```php 
+class Database
+{
+    protected $logger;
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    public function execute($query, $parameters)
+    {
+        // execute the query
+
+        $this->logger->info('query executed', array($query, $parameters));
+    }
+}
 ```
 
 ---
 
-/app/config/routing.yml
+## DIC: what's in there?
+
+```bash
+# List all services
+app/console container:debug
+```
+
+```bash
+# I know what I'm looking for
+app/console container:debug | ack mailer
+```
+
+---
+
+## DIC: adding a service
 
 ```yaml
+# app/config/routing.yml
 services:
     paginator:
         class: Common\Paginator
         arguments: [ "@logger" ]
 ```
 
-/src/Frontend/Blog/Actions/Index.php
-
 ```php
+// src/Frontend/Blog/Actions/Index.php
 $this->tpl->assign(
     'pagination',
     $this->get('paginator')->paginate($blogPosts)
@@ -132,17 +183,18 @@ $this->tpl->assign(
 
 ---
 
-Factory: used a lot for doctrine repositories
+## DIC: adding a service
 
-/app/config/routing.yml
+Using a factory
 
 ```yaml
+# app/config/routing.yml
 services:
     faker:
         class: Faker\Generator
         factory_class: Faker\Factory
         factory_method: create
-        arguments: [ en_US ]
+        arguments: [ 'en_US' ]
 ```
 
 ---

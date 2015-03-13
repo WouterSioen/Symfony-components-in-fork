@@ -30,10 +30,11 @@ blockquote {
   margin: 1.5em 0;
   padding: 1em;
   quotes: "\201C""\201D""\2018""\2019";
+  position: relative;
 }
 blockquote:before {
   position: absolute;
-  top: 2em;
+  top: 0.5em;
   color: #ccc;
   content: open-quote;
   font-size: 4em;
@@ -43,6 +44,10 @@ blockquote:before {
 blockquote p {
   margin: 0;
   padding-left: 2.1em;
+  padding-bottom: 1em;
+}
+blockquote p:last-child {
+  padding-bottom: 0;
 }
 
 .image-replace * {
