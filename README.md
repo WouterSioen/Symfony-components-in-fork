@@ -2,10 +2,13 @@
 
 ---
 
-## Introduction
+## I'm Wouter
 
-I'm Wouter
-some more blabla
+![Sumo Wouter](img/Sumo_Wouter.png)
+
+:twitter: [@WouterSioen](http://twitter.com/WouterSioen)
+
+:github: [WouterSioen](http://github.com/WouterSioen)
 
 ---
 
@@ -49,25 +52,29 @@ Want to add a custom application?
 
 /app/config/routing.yml
 
-    custom_application:
-        path:/custom/application
-        defaults:
-            _controller: /Custom/Application/Controller::helloWorldAction
+```yaml
+custom_application:
+    path:/custom/application
+    defaults:
+        _controller: /Custom/Application/Controller::helloWorldAction
+```
 
 Custom/Application/Class.php
 
-    namespace Custom\Application;
+```php
+namespace Custom\Application;
 
-    use Symfony\Component\HttpFoundation\Request;
-    use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-    class Controller
+class Controller
+{
+    public function helloWorldAction(Request $request)
     {
-        public function helloWorldAction(Request $request)
-        {
-            return new Response('Hello world');
-        }
+        return new Response('Hello world');
     }
+}
+```
 
 ---
 
@@ -83,23 +90,29 @@ Why? Some theory:
 
 ---
 
-    app/console container:debug
+```bash
+app/console container:debug
+```
 
 ---
 
 /app/config/routing.yml
 
-    services:
-        paginator:
-            class: Common\Paginator
-            arguments: [ "@logger" ]
+```yaml
+services:
+    paginator:
+        class: Common\Paginator
+        arguments: [ "@logger" ]
+```
 
 /src/Frontend/Blog/Actions/Index.php
 
-    $this->tpl->assign(
-        'pagination',
-        $this->get('paginator')->paginate($blogPosts)
-    );
+```php
+$this->tpl->assign(
+    'pagination',
+    $this->get('paginator')->paginate($blogPosts)
+);
+```
 
 ---
 
@@ -107,12 +120,14 @@ Factory: used a lot for doctrine repositories
 
 /app/config/routing.yml
 
-    services:
-        faker:
-            class: Faker\Generator
-            factory_class: Faker\Factory
-            factory_method: create
-            arguments: [ en_US ]
+```yaml
+services:
+    faker:
+        class: Faker\Generator
+        factory_class: Faker\Factory
+        factory_method: create
+        arguments: [ en_US ]
+```
 
 ---
 
@@ -129,49 +144,55 @@ Used by
 
 some useful included commands
 
-    # list all commands
-    app/console
+```bash
+# list all commands
+app/console
 
-    # start a php server that users the current folder as docroot
-    app/console server:run --docroot=.
+# start a php server that users the current folder as docroot
+app/console server:run --docroot=.
 
-    # list all services in the DIC
-    app/console container:debug
+# list all services in the DIC
+app/console container:debug
 
-    # list all loaded routes
-    app/console router:debug
+# list all loaded routes
+app/console router:debug
+```
 
 ---
 
 Common/Command/HelloWorldCommand.php
 
-    namespace Common\Command;
+```php
+namespace Common\Command;
 
-    use Symfony\Component\Console\Command\Command;
-    use Symfony\Component\Console\Input\InputInterface;
-    use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
-    class HelloWorldCommand extends Command
+class HelloWorldCommand extends Command
+{
+    protected function configure()
     {
-        protected function configure()
-        {
-            $this
-                ->setName('hello:world')
-                ->setDescription('Say hello to the world')
-            ;
-        }
-
-        protected function execute(InputInterface $input, OutputInterface $output)
-        {
-            $output->writeln('Hello meetup!');
-        }
+        $this
+            ->setName('hello:world')
+            ->setDescription('Say hello to the world')
+        ;
     }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $output->writeln('Hello meetup!');
+    }
+}
+```
 
 app/console
 
-    $application = new Application($kernel);
-    $application->add(new \Common\Command\HelloWorldCommand());
-    $application->run($input);
+```php
+$application = new Application($kernel);
+$application->add(new \Common\Command\HelloWorldCommand());
+$application->run($input);
+```
 
 ---
 
