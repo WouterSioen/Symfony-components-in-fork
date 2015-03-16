@@ -269,6 +269,19 @@ $application->run($input);
 
 ---
 
+## Console: other stuff
+
+* Options & arguments
+* Helpers
+  * Question
+  * Formatter
+  * Progress bar
+  * Table
+* Coloring output
+* Verbosity
+
+---
+
 ## Event dispatcher
 
 Easy to hook into other modules without coupling.
