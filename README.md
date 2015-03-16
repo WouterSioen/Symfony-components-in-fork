@@ -286,8 +286,8 @@ $application->run($input);
 
 Easy to hook into other modules without coupling.
 
-* Now: remove the search module and half the backend breaks.
-* Using events: remove the search module and the search indices will just not be saved
+* Now: remove search module => backend breaks.
+* Using events: remove module => search indices not saved
 
 ---
 
