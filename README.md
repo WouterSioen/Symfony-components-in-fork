@@ -213,7 +213,7 @@ Used by
 
 ---
 
-some useful included commands
+## Console: some commands
 
 ```bash
 # list all commands
@@ -231,9 +231,10 @@ app/console router:debug
 
 ---
 
-Common/Command/HelloWorldCommand.php
+## Console: implementation
 
 ```php
+// Common/Command/HelloWorldCommand.php
 namespace Common\Command;
 
 use Symfony\Component\Console\Command\Command;
@@ -244,10 +245,8 @@ class HelloWorldCommand extends Command
 {
     protected function configure()
     {
-        $this
-            ->setName('hello:world')
-            ->setDescription('Say hello to the world')
-        ;
+        $this->setName('hello:world')
+            ->setDescription('Say hello to the world');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -257,9 +256,12 @@ class HelloWorldCommand extends Command
 }
 ```
 
-app/console
+---
+
+## Console: implementation
 
 ```php
+// app/console
 $application = new Application($kernel);
 $application->add(new \Common\Command\HelloWorldCommand());
 $application->run($input);
