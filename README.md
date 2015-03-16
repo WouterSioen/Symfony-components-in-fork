@@ -128,7 +128,7 @@ SOLID principles
 
 ## DIC: dependency inversion
 
-```php 
+```php
 class Database
 {
     protected $logger;
@@ -518,6 +518,16 @@ $this->assertEquals(
     $crawler->filter('html:contains("Event for functional tests")')->count()
 );
 ```
+
+---
+
+## Questions?
+
+---
+
+## Thanks!
+
+<https://joind.in/talk/view/14182>
 
 ---
 
