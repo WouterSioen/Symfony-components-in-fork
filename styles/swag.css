@@ -10,6 +10,12 @@ h1, h2, h3 {
   font-weight: 800;
   color: #0A6076;
 }
+.remark-container {
+  background-color: #000;
+}
+.remark-slide-scaler {
+  box-shadow: none;
+}
 .remark-code {
   font-size: 22px;
 }
