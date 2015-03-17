@@ -26,6 +26,9 @@ h1, h2, h3 {
 .remark-slide-number {
   display: none;
 }
+.remark-slide-content img {
+  max-width: 100%;
+}
 
 blockquote {
   background: #f9f9f9;

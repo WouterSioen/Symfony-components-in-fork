@@ -291,9 +291,9 @@ Easy to hook into other modules without coupling.
 
 ---
 
-### Theory
+## Event dispatcher: theory
 
-Observer pattern
+![Observer pattern](img/Observer.png)
 
 ---
 
