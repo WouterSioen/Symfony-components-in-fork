@@ -445,9 +445,9 @@ class LoadEvents
         $database->insert(
             'events',
             array(
-                'language' => 'en',
-                'meta_id' => $metaId,
-                'title' => 'Event for functional tests',
+                'language'   => 'en',
+                'meta_id'    => $metaId,
+                'title'      => 'Event for functional tests',
                 'start_date' => '2015-03-26',
                 'start_hour' => '19:00,
             )
@@ -463,19 +463,14 @@ class LoadEvents
 ```php
 namespace Frontend\Modules\Events\Tests\Actions;
 
-use Common\WebTestCase;
-
-class IndexText extends WebTestCase
+class IndexText extends \Common\WebTestCase
 {
     public function testIndexContainsEvents()
     {
         $client = static::createClient();
-
         $this->loadFixtures(
             $client,
-            array(
-                'Backend\Modules\Events\DataFixtures\LoadEvents',
-            )
+            ['Backend\Modules\Events\DataFixtures\LoadEvents']
         );
 
         $client->request('GET', '/en/events');
@@ -506,7 +501,12 @@ class IndexText extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', '/en/events', array('page' => 34));
+        $client->request(
+            'GET',
+            '/en/events',
+            array('page' => 34)
+        );
+
         $this->assertIs404($client);
     }
 }
@@ -536,7 +536,9 @@ $this->assertStringStartsWith(
 // assert that the page does not contain (have 0 occurences) of
 $this->assertEquals(
     0,
-    $crawler->filter('html:contains("Event for functional tests")')->count()
+    $crawler
+        ->filter('html:contains("Event for functional tests")')
+        ->count()
 );
 ```
 
