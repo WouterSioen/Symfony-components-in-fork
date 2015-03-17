@@ -297,9 +297,7 @@ Easy to hook into other modules without coupling.
 
 ---
 
-### Implementation
-
-Optional: module/bundle overview of events
+## Events: Implementation
 
 ```php
 namespace Backend\Modules\Blog;
@@ -307,8 +305,8 @@ namespace Backend\Modules\Blog;
 final class BlogEvents
 {
     /**
-     * The form.submitted event is thrown each time a formbuilder instance is
-     * submitted.
+     * The form.submitted event is thrown each time a
+     * formbuilder instance is submitted.
      *
      * The event listener receives an
      * Backend\Modules\Blog\Event\PostSavedEvent instance.
@@ -319,11 +317,13 @@ final class BlogEvents
 }
 ```
 
+???
+
+Optional: module/bundle overview of events
+
 ---
 
-### Implementation
-
-Event containing the needed data (immutable object)
+## Events: Implementation
 
 ```php
 namespace Backend\Modules\Blog\Event;
@@ -346,11 +346,13 @@ class PostSavedEvent extends Event
 }
 ```
 
+???
+
+(Immutable) event containing the needed data
+
 ---
 
-### Implementation
-
-Event subscriber
+## Events: Implementation
 
 ```php
 namespace Backend\Modules\Search\EventListener;
@@ -358,52 +360,52 @@ namespace Backend\Modules\Search\EventListener;
 use Backend\Modules\Blog\Event\PostAddedEvent;
 use Backend\Modules\Search\Engine\Model as SearchModel;
 
-class SearchIndexListener
-{
+class SearchIndexListener {
     protected $module;
 
-    public function __construct($module)
-    {
+    public function __construct($module) {
         $this->module = $module;
     }
 
-    public function onPostSaved(PostAddedEvent $event)
-    {
+    public function onPostSaved(PostAddedEvent $event) {
         $post = $event->getPost();
-
         SearchModel::saveIndex(
             $this->module,
             $post['id'],
-            array(
-                'title' => $post['title'],
-                'text' => $post['text'],
-            )
+            [ 'title' => $post['title'], 'text' => $post['text'] ]
         );
     }
 }
 ```
 
+???
+
+Event subscriber
+
 ---
 
-### Implementation
-
-Hook the listener to the event
+## Events: Implementation
 
 ```yaml
 services:
     blog.search_indexer:
-        class: Backend\Modules\Search\EventListener\BlogPostSearchIndexListener
+        class: ...\EventListener\BlogPostSearchIndexListener
         arguments:
             - "Blog"
         tags:
-            - { name: kernel.event_listener, event: blog.post_saved, method: onPostSaved }
+            -
+                name: kernel.event_listener
+                event: blog.post_saved
+                method: onPostSaved
 ```
+
+???
+
+Hook the listener to the event
 
 ---
 
-### Implementation
-
-Dispatching the event
+## Events: Implementation
 
 ```php
 $this->get('event_dispatcher')->dispatch(
@@ -411,6 +413,10 @@ $this->get('event_dispatcher')->dispatch(
     new PostSavedEvent($post)
 );
 ```
+
+???
+
+Dispatching the event
 
 ---
 
