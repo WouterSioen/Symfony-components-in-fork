@@ -187,6 +187,8 @@ be the first parameter.
 ## Service container
 
 > Put simply, a Service is any PHP object that performs some sort of "global" task.
+>
+> -- Fabien Potencier
 
 ---
 
