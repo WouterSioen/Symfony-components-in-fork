@@ -260,6 +260,11 @@ SOLID principles
 * Interface Segregation
 * __Dependency inversion__
 
+???
+
+The SOLID principles are five basic principles of OO programming and design. They
+were introduced by Robert C. Martin and will help you to build maintainable code.
+
 ---
 
 ## DIC: Dependency inversion
@@ -272,12 +277,17 @@ SOLID principles
 >
 > -- Robert C. Martin
 
+???
+
+The Dependency inversion principle contains two statements. (See slide). In our
+example, it's pretty easy to get this straight.
+
 ---
 
 ## DIC: dependency inversion
 
 ```php
-class Database
+class MySqlDatabase implements DatabaseInterface
 {
     protected $logger;
 
@@ -286,7 +296,7 @@ class Database
         $this->logger = $logger;
     }
 
-    public function execute($query, $parameters)
+    public function insert($data)
     {
         // execute the query
 
@@ -297,6 +307,33 @@ class Database
     }
 }
 ```
+
+???
+
+As you can see, we introduced interfaces! Our Database can now accept every type
+of logger, as long as it implements the LoggerInterface. This means that we depend
+on abstractions, not on implementations, as the dependency inversion principle
+states. Our Database class is decoupled from the logger!
+
+I also renamed "Database" to "MySqlDatabase" and made it implement the
+DatabaseInterface. This way, I can swap our database with a postgress implementation
+without a lot of hassle, as long as it implements the DatabaseInterface, we're
+ready to go!
+
+---
+
+## DIC: Service container
+
+> A Service Container (or dependency injection container) is simply a PHP object that manages the instantiation of services (i.e. objects).
+>
+> -- Fabien Potencier
+
+???
+
+Symfony used a "Service Container" or "Dependency injection container" to manage
+all these services. Using this service container, we can easily manage all the
+reusable classes and the dependencies they get injected. But enough theory, let's
+look at how this works.
 
 ---
 
@@ -311,6 +348,13 @@ app/console container:debug
 # I know what I'm looking for
 app/console container:debug | ack mailer
 ```
+
+???
+
+There are already a lot of services in this container by default, mostly added
+by Symfony. Fork provides the custom database service. Using the container:debug
+command, you can easily see what's in there. But there's a lot in there, so it
+could be easier to use grep or ack to fastly filter what you're looking for.
 
 ---
 
