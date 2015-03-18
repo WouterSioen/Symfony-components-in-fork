@@ -241,8 +241,12 @@ class Database
 
 In this example, the Logger is still a dependency of the logger. The only change
 is that it's injected in the class, instead of instantiated there. The dependencies
-could also be injected using setter injection. You'll see why this is better in
-the upcoming slides.
+could also be injected using setter injection.
+
+We want to do this to decouple our classes from it's dependencies. If you've been
+paying attention, you've probably be noticed that our example isn't that less
+decoupled than our previous version. That's where the dependency inversion principle
+comes in.
 
 ---
 
