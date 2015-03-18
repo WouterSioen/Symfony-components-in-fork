@@ -50,11 +50,29 @@
 
 ![Request flow (without routing)](img/request-flow-short.png)
 
+???
+
+Symfony follows the Front Controller pattern. This means that all requests use one
+central entry point. This one place makes sure the request is routed to the right
+controller and returns the response. In symfony, there are in fact two front controllers:
+web/app.php for normal requests and web/app_dev.php for requests in debug mode.
+
+In Fork CMS, we only have 1 front controller: our index.php file.
+
 ---
 
 ## Routing: Front controller
 
 ![Request flow (with routing)](img/request-flow.png)
+
+???
+
+The diagram in the previous slide was in fact an ultra simplified version of how
+symfony sends the requests to the right controller. The handle() method is called
+on the HttpKernel and the request is send to it as a parameter. This handle method
+will dispatch the kernel.request event. (more about events later). There could be
+multiple listeners to this event, but in most cases, it will be the "RouterListener"
+that will send back the controller method.
 
 ---
 
@@ -68,12 +86,23 @@ custom_application:
         _controller: /Custom/Controller::helloWorldAction
 ```
 
+???
+
+All our routes are (for now) saved in the app/config/routing.yml file. You can
+just add an extra entry in there with a name, a path and a controller. When the
+given route is matched, the given controller will be responsible to send back the
+response. The name is used to generate url's to this route.
+
+Note that the order of the entries in this routing.yml file is important. The routing
+component will check the routes until a matching route is found. Routes that are
+further in the document, but also match the given url won't even be considered.
+
 ---
 
 ## Routing: implementation
 
 ```php
-// Custom/Class.php
+// Custom/Controller.php
 namespace Custom;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -87,6 +116,71 @@ class Controller
     }
 }
 ```
+
+???
+
+To make your controller work, you have to add the controller method specified in
+your routing.yml file. Even though the static notation is used in the yaml file,
+your method should not be static. An instance of the Controller class will be made
+and the parameters will be injected. If a parameter typehinted as a Request is available
+(like in the example), the request object will be inserted.
+
+every controller should return a Response. This will be bubbled up to the Front
+Controller and send to the user.
+
+---
+
+## Routing: parameters
+
+```yaml
+# app/config/routing.yml
+custom_application:
+    path:/custom/application/{page}
+    defaults:
+        _controller: /Custom/Controller::helloWorldAction
+        page: 1
+    requirements:
+        page: d\+
+```
+
+???
+
+You can add parameters to your routes to make it a lot more dynamic. The preview
+shows a page number as argument, but this could be a slug, an id, ...
+
+You can also add requirements and defaults to these parameters. Requirements will
+make sure the route can only be matched when the parameters follow a certain regex.
+In this case, only numbers will match, because we can only interpret these as page
+numbers.
+
+We've given the page as default number "1". This makes it easy to make parameters
+not required.
+
+---
+
+## Routing: parameters
+
+```php
+// Custom/Controller.php
+namespace Custom;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+class Controller
+{
+    public function helloWorldAction(Request $request, $id)
+    {
+        return new Response('Hello world: page' . $id);
+    }
+}
+```
+
+???
+
+The parameter will be injected in your method. Note that the matching is done on
+variable name. The order is not relevant. You can also change the request to not
+be the first parameter.
 
 ---
 
