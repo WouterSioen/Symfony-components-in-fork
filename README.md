@@ -194,7 +194,55 @@ be the first parameter.
 
 ## DIC: Dependency injection
 
-> Dependency injection is a _design pattern_ to achieve depencency inversion.
+> Dependency injection is a _design pattern_ to achieve dependency inversion.
+
+---
+
+## DIC: Dependency injection
+
+```php
+// without dependency injection
+class Database
+{
+    private $logger;
+
+    public function __construct()
+    {
+        $this->logger = new Logger();
+    }
+}
+```
+
+???
+
+Let's first look at what dependency injection is. The class in this example creates
+a new instance of the Logger class, each time a class instance is created. This
+logger is (hopefully) used later in this class, so we can say the Logger is a
+dependency of the Database class
+
+---
+
+## DIC: Dependency injection
+
+```php
+// with dependency injection
+class Database
+{
+    private $logger;
+
+    public function __construct(Logger $logger)
+    {
+        $this->logger = $logger;
+    }
+}
+```
+
+???
+
+In this example, the Logger is still a dependency of the logger. The only change
+is that it's injected in the class, instead of instantiated there. The dependencies
+could also be injected using setter injection. You'll see why this is better in
+the upcoming slides.
 
 ---
 
