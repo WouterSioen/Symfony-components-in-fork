@@ -27,9 +27,9 @@
 ## Topics
 
 * Routing
-* Dependency injection container
+* DependencyInjection
 * Console
-* Event Dispatcher
+* EventDispatcher
 * Functional tests
 
 ---
@@ -497,8 +497,8 @@ namespace Backend\Modules\Blog;
 final class BlogEvents
 {
     /**
-     * The form.submitted event is thrown each time a
-     * formbuilder instance is submitted.
+     * The blog.post_saved event is thrown each time a
+     * blog post is submitted.
      *
      * The event listener receives an
      * Backend\Modules\Blog\Event\PostSavedEvent instance.
