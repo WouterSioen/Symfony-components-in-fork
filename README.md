@@ -360,6 +360,34 @@ could be easier to use grep or ack to fastly filter what you're looking for.
 
 ## DIC: adding a service
 
+```php
+namespace Common;
+
+class Paginator
+{
+    public function paginate(array $items, $page = 1, $limit = 10)
+    {
+        return array_slice(
+            $items,
+            ($page - 1) * $limit,
+            $limit
+        );
+    }
+}
+```
+
+???
+
+Implementing a service is really easy. The first step is to create a PHP class
+that implements some functionality. In this example, I'll create the most simple
+pagination system possible. Our service (which is in fact just a PHP class),
+we'll receive an array and possibly a page and a limit. We return a slice of the
+array.
+
+---
+
+## DIC: adding a service
+
 ```yaml
 # app/config/routing.yml
 services:
@@ -367,6 +395,20 @@ services:
         class: Common\Paginator
         arguments: [ "@logger" ]
 ```
+
+???
+
+We now have our service, but we wan't it to be available in our dependency
+injection container. Adding a service is as easy as adding some lines in the
+configuration file of Fork (or Symfony). We need to give the service a name and
+specify the class. It's also possible to add arguments (for constructor
+injection) or to add calls, to do setter injection or call some "startup"
+method on your service. On the database service, there are calls added, to force
+the database to use the utf-8 charset.
+
+---
+
+## DIC: using your service
 
 ```php
 // src/Frontend/Blog/Actions/Index.php
@@ -376,9 +418,15 @@ $this->tpl->assign(
 );
 ```
 
+???
+
+We can now fetch our service from the dependency injection container! It's as
+easy as calling the $this->get shortcut in a method, or using the Model::get
+shortcuts in our static classes.
+
 ---
 
-## DIC: adding a service
+## DIC: more configuration
 
 Using a factory
 
@@ -391,6 +439,13 @@ services:
         factory_method: create
         arguments: [ 'en_US' ]
 ```
+
+???
+
+Some code requires a factory method to be called to create the instance. You can
+see an example of creating a generator for faker (which is awesome btw) using
+the Faker\Factory. The factory_class and factory_method should be specified to
+use this.
 
 ---
 
