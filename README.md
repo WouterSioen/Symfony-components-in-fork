@@ -581,11 +581,25 @@ Easy to hook into other modules without coupling.
 * Now: remove search module => backend breaks.
 * Using events: remove module => search indices not saved
 
+???
+
+The event dispatcher is a really nice component that makes it easy to decouple
+code. There is already an open PR to Fork CMS to start reworking some stuff
+using the event dispatcher. A common thing to do in these kind of events is
+sending notification emails. It's really useful to have low coupling between
+modular code.
+
 ---
 
 ## Event dispatcher: theory
 
-![Observer pattern](img/Observer.png)
+![Mediator pattern](img/mediator.png)
+
+???
+
+The event dispatcher implements the mediator pattern. This pattern introduces an
+object that handles all communication between other objects: the producers
+(= objects that throws events) and the consumers (=subscribers/listeners).
 
 ---
 
@@ -611,7 +625,10 @@ final class BlogEvents
 
 ???
 
-Optional: module/bundle overview of events
+Using the events system requires a little more effort then the previous components
+we've used. We can start by creating an overview of all events in a module/bundle.
+This is optional, but it can be helpful to be able to use the constants which is
+less error prone, and to have an overview in one place.
 
 ---
 
@@ -640,7 +657,10 @@ class PostSavedEvent extends Event
 
 ???
 
-(Immutable) event containing the needed data
+In the second step, we create an "event" object. this is the object that will be
+passed between the producer, the mediator and the consumer. This means that all
+data in here will be set when dispatching the event. It will also be the data our
+subscriber will get and will be able to use.
 
 ---
 
@@ -672,7 +692,11 @@ class SearchIndexListener {
 
 ???
 
-Event subscriber
+Our event subscriber or listener is in fact just a service. You can inject other
+services in it using dependency injection, as seen in one of the previous examples.
+
+It should have a method that will be called when the event is dispatched. This
+method receives our event object.
 
 ---
 
@@ -693,7 +717,15 @@ services:
 
 ???
 
-Hook the listener to the event
+We now have our listener, but we should still link our subscriber to the event.
+We can register the class as a service first, to make it available in the container.
+
+Changing a service into an event listener is done by using tags. We add the tag
+with the name "kernel.event_listener" to it. This makes sue our container knows
+that this service should be registered in the mediator.
+
+We also add the event (from the event overview class) and the method that should
+be called in here.
 
 ---
 
@@ -708,7 +740,8 @@ $this->get('event_dispatcher')->dispatch(
 
 ???
 
-Dispatching the event
+Everything is set up! We're now ready to dispatch our event! All event subscribers
+will be called automatically.
 
 ---
 
