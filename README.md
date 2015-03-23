@@ -322,6 +322,12 @@ ready to go!
 
 ---
 
+## Dependency inversion principle
+
+Would you solder a lamp directly to the electrial wiring in a wall?
+
+---
+
 ## DIC: Service container
 
 > A Service Container (or dependency injection container) is simply a PHP object that manages the instantiation of services (i.e. objects).

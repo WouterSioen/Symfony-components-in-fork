@@ -25,4 +25,5 @@ $(document).on('ready', function(){
   $('.remark-slides-area .remark-slide-content:eq(2)').addClass('sumocoders image-replace');
   $('.remark-slides-area .remark-slide-content:eq(3)').addClass('symfony image-replace center middle');
   $('.remark-slides-area .remark-slide-content:eq(4)').addClass('fork image-replace');
+  $('.remark-slides-area .remark-slide-content:eq(20)').addClass('dependency-inversion image-replace');
 });

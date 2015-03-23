@@ -97,3 +97,10 @@ blockquote p:last-child {
   -o-background-size: 100% 100%;
   background-size: 100% 100%;
 }
+.dependency-inversion {
+  background: url(../img/dependency_inversion.jpg) no-repeat;
+  -webkit-background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  background-size: 100% 100%;
+}
