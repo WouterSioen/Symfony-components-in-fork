@@ -458,6 +458,11 @@ Used by
 * phpspec
 * ...
 
+???
+
+The Symfony console component is one of the components you'll find most out of
+the Symfony ecosystem. Some tools you're probably use everyday are based on it.
+
 ---
 
 ## Console: some commands
@@ -475,6 +480,11 @@ app/console container:debug
 # list all loaded routes
 app/console router:debug
 ```
+
+???
+
+There are already a lot of commands available in Fork at the moment. You can see
+all possible commands when you type in app/console without stating a command.
 
 ---
 
@@ -503,6 +513,21 @@ class HelloWorldCommand extends Command
 }
 ```
 
+???
+
+Implementing a console command is not that hard. In the php file, you have two
+methods. The configure method describes your command and will be used for
+documentation about your command and to validate the input. Arguments and options
+should be specified in there.
+
+The execute method is called when you run app/console suffixed with the name of
+your command. It's good to know that you can abbreviate your name, as long as
+it's stays unique. You can for example use h:w if that's unique.
+
+When you need services from the DIC, you can also implement the
+ContainerAwareCommand interface. Symfony will automatically inject the container
+into the command and you'll be able to fetch it using $this->getContainer().
+
 ---
 
 ## Console: implementation
@@ -513,6 +538,14 @@ $application = new Application($kernel);
 $application->add(new \Common\Command\HelloWorldCommand());
 $application->run($input);
 ```
+
+???
+
+All available commands are registered in an application. When your command is in
+the right namespace in a Symfony bundle, it will be automatically registered.
+When adding a command in a Fork module, you have to register it manually though.
+
+You can do it by just adding an instance of it to the application object.
 
 ---
 
@@ -526,6 +559,12 @@ $application->run($input);
   * Table
 * Coloring output
 * Verbosity
+
+???
+
+The functionaly I showed is of course not enough to write amazing stuff (like
+composer) using this component. The component contains a large amount of
+features and helper sets to make it easy for you to implement most CLI features.
 
 ---
 
