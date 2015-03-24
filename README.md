@@ -464,6 +464,8 @@ Used by
 * phpspec
 * ...
 
+![Cli all the things!](img/cli-all-the-things.jpeg)
+
 ???
 
 The Symfony console component is one of the components you'll find most out of
@@ -959,7 +961,7 @@ a lot in functional tests.
 
 ---
 
-## Thanks!
+## Thank you!
 
 <https://joind.in/talk/view/14182>
 

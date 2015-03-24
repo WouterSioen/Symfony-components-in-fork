@@ -10,6 +10,10 @@ h1, h2, h3 {
   font-weight: 800;
   color: #0A6076;
 }
+a {
+  color: #0088cc;
+  text-decoration: none;
+}
 .remark-container {
   background-color: #000;
 }
@@ -34,6 +38,11 @@ h1, h2, h3 {
 }
 .remark-slide-content img {
   max-width: 100%;
+}
+.img-right-bottom img {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
 }
 
 blockquote {
@@ -99,6 +108,13 @@ blockquote p:last-child {
 }
 .dependency-inversion {
   background: url(../img/dependency_inversion.jpg) no-repeat;
+  -webkit-background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  background-size: 100% 100%;
+}
+.questions {
+  background: url(../img/questions.jpg) no-repeat;
   -webkit-background-size: 100% 100%;
   -moz-background-size: 100% 100%;
   -o-background-size: 100% 100%;
