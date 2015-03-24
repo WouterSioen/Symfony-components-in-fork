@@ -970,4 +970,9 @@ a lot in functional tests.
 ## Resources
 
 http://symfony.com/doc/current/index.html
+
 https://speakerdeck.com/ronnylt/dic-to-the-limit-desymfonyday-barcelona-2014
+
+https://lostechies.com/derickbailey/2009/02/11/solid-development-principles-in-motivational-pictures/
+
+http://blog.servergrove.com/2013/10/23/symfony2-components-overview-eventdispatcher/
