@@ -751,9 +751,21 @@ will be called automatically.
 * confidence in code
 * $maintainability++
 
+???
+
+We have functional tests in Fork for around one month now and they have already
+proven to be very helpful. We were able to spot some problems in our code and
+pull requests just became a lot easier to inspect.
+
+Functional tests are really useful when refactoring. You can change everything
+on the inside of your application, but you'll know you're application is still
+running without having to manually run trough all pages. Having green tests
+is also a great mental help. It gives you confidence in your code. You can deploy
+your code to production and be sure that (the tested parts) won't be broken.
+
 ---
 
-### Implementation
+## Tests: Implementation
 
 ```php
 namespace Backend\Modules\Events\DataFixtures;
@@ -781,9 +793,20 @@ class LoadEvents
 }
 ```
 
+???
+
+To use functional tests, we need some data. If we want to check if a blog works,
+we need posts, categories, comments,... to check.
+
+The way we load data is using fixtures. This concept also exists in Symfony, using
+the doctrine library, but since we're still tied to SpoonDatabase, we have our
+own custom implementation. It's as easy as creating a class with a load method
+that accepts a SpoonDatabase instance. You can then do queries on the database
+to insert your wanted data.
+
 ---
 
-### Implementation
+## Tests: Implementation
 
 ```php
 namespace Frontend\Modules\Events\Tests\Actions;
@@ -811,9 +834,31 @@ class IndexText extends \Common\WebTestCase
 }
 ```
 
+???
+
+A functional test itself extends the \Common\WebTestCase class. This is a base
+class that extends Symfony's WebTestCase to provide some Fork specific stuff.
+
+It contains for example some hacks to put data in the $_GET and $_POST superglobals
+to make sure SpoonForms can be submitted.
+
+The first step in our testmethod itself is creating a client. This is an instance
+of Symfonys test client. This client is in fact a headless version of your Symfony
+application. It will find the AppKernel, the heart of our application, and do
+requests on it, as if it was a browser, or other HTTP-client.
+
+After creating the client, we can load the fixtures. When loading fixtures, our
+database will always be reset to a clean state (default Fork installation). The
+load method in t he classes given as the second argument will be called afterwards
+to provide custom data for the test.
+
+After setting everything up, we can do requests on the client. In this example,
+we do a request to the index page and check if we get a 200 response and if our
+event - added in the fixture - is available on this page.
+
 ---
 
-### Implementation
+## Tests: Implementation
 
 ```php
 namespace Frontend\Modules\Events\Tests\Actions;
@@ -837,9 +882,44 @@ class IndexText extends WebTestCase
 }
 ```
 
+???
+
+It's also a good idea to not only test the succesful scenarios. You should for
+example get a 404 when you go to the 34th event index page when there is only one
+event, or when you go to the event detail page with a wrong slug.
+
+We added a nice assertIs404 method that will check if we're redirect to the 404
+page and if we got the 404 status code.
+
 ---
 
-Useful assertions
+## Tests: Running them
+
+```bash
+# running all the tests
+bin/phpunit -c app
+
+# running one test suite
+bin/phpunit -c app --testsuite=unit
+bin/phpunit -c app --testsuite=functional
+
+# using a filter
+bin/phpunit -c app --filter=event
+```
+
+???
+
+When creating tests, or writing code that is tested, it's important to run the
+tests a lot. With functional tests, your tests can get slow, so you can also filter
+on a string, or run only the unit or the functional tests.
+
+After deploying a feature, it could be useful to run the full testsuite again.
+When proposing features to Fork, this will also be done on travis-ci, to make
+sure our code still works on various php versions.
+
+---
+
+## Tests: Useful assertions
 
 ```php
 // assert url after redirect (clicking a link/submitting a form)
@@ -866,6 +946,12 @@ $this->assertEquals(
         ->count()
 );
 ```
+
+???
+
+Phpunit provides a lot of assertions which are all listed in it's documentation.
+You won't need them all though. This list contains some assertions you'll need
+a lot in functional tests.
 
 ---
 
