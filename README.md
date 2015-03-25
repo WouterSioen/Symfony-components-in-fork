@@ -689,16 +689,16 @@ use Symfony\Component\EventDispatcher\Event;
 
 class PostSavedEvent extends Event
 {
-    protected $post;
+    protected $blogPost;
 
-    public function __construct($post)
+    public function __construct($blogPost)
     {
-        $this->post = $post;
+        $this->blogPost = $blogPost;
     }
 
-    public function getPost()
+    public function getBlogPost()
     {
-        return $this->post;
+        return $this->blogPost;
     }
 }
 ```
