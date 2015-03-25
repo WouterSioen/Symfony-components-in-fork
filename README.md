@@ -169,9 +169,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Controller
 {
-    public function helloWorldAction(Request $request, $id)
+    public function helloWorldAction(Request $request, $page)
     {
-        return new Response('Hello world: page' . $id);
+        return new Response('Hello world: page ' . $page);
     }
 }
 ```
