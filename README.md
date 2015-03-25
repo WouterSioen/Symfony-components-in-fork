@@ -78,29 +78,6 @@ that will send back the controller method.
 
 ## Routing: implementation
 
-```yaml
-# app/config/routing.yml
-custom_application:
-    path:/custom/application
-    defaults:
-        _controller: /Custom/Controller::helloWorldAction
-```
-
-???
-
-All our routes are (for now) saved in the app/config/routing.yml file. You can
-just add an extra entry in there with a name, a path and a controller. When the
-given route is matched, the given controller will be responsible to send back the
-response. The name is used to generate url's to this route.
-
-Note that the order of the entries in this routing.yml file is important. The routing
-component will check the routes until a matching route is found. Routes that are
-further in the document, but also match the given url won't even be considered.
-
----
-
-## Routing: implementation
-
 ```php
 // Custom/Controller.php
 namespace Custom;
@@ -127,6 +104,29 @@ and the parameters will be injected. If a parameter typehinted as a Request is a
 
 every controller should return a Response. This will be bubbled up to the Front
 Controller and send to the user.
+
+---
+
+## Routing: implementation
+
+```yaml
+# app/config/routing.yml
+custom_application:
+    path:/custom/application
+    defaults:
+        _controller: /Custom/Controller::helloWorldAction
+```
+
+???
+
+All our routes are (for now) saved in the app/config/routing.yml file. You can
+just add an extra entry in there with a name, a path and a controller. When the
+given route is matched, the given controller will be responsible to send back the
+response. The name is used to generate url's to this route.
+
+Note that the order of the entries in this routing.yml file is important. The routing
+component will check the routes until a matching route is found. Routes that are
+further in the document, but also match the given url won't even be considered.
 
 ---
 
