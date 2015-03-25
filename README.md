@@ -409,10 +409,17 @@ array.
 ## DIC: adding a service
 
 ```yaml
-# app/config/routing.yml
+# app/config/config.yml
 services:
     paginator:
         class: Common\Paginator
+```
+
+```yaml
+# app/config/config.yml
+services:
+    database:
+        class: MysqlDatabase
         arguments: [ "@logger" ]
 ```
 
@@ -438,6 +445,13 @@ $this->tpl->assign(
 );
 ```
 
+```php
+// src/Frontend/Blog/Engine/Model.php
+use Frontend\Core\Engine\Model as FrontendModel;
+
+FrontendModel::get('paginator')->paginate($items);
+```
+
 ???
 
 We can now fetch our service from the dependency injection container! It's as
@@ -458,6 +472,12 @@ services:
         factory_class: Faker\Factory
         factory_method: create
         arguments: [ 'en_US' ]
+```
+
+=
+
+```php
+$faker = Faker\Factory::create('en_US');
 ```
 
 ???
@@ -568,6 +588,18 @@ the right namespace in a Symfony bundle, it will be automatically registered.
 When adding a command in a Fork module, you have to register it manually though.
 
 You can do it by just adding an instance of it to the application object.
+
+---
+
+## Console: implementation
+
+```bash
+app/console hello:world
+```
+
+???
+
+Now you can just run app/console hello:world to execute your command.
 
 ---
 
