@@ -965,6 +965,8 @@ a lot in functional tests.
 
 <https://joind.in/talk/view/14182>
 
+![Thanks](img/thanks.png)
+
 ---
 
 ## Resources

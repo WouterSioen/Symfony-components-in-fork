@@ -120,3 +120,10 @@ blockquote p:last-child {
   -o-background-size: 100% 100%;
   background-size: 100% 100%;
 }
+.thanks img {
+  position: absolute;
+  width: 66%;
+  left: 50%;
+  margin-left: -33%;
+  top: 30%;
+}
