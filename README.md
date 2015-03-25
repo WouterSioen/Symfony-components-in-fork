@@ -747,6 +747,7 @@ method receives our event object.
 ## Events: Implementation
 
 ```yaml
+# app/config/config.yml
 services:
     blog.search_indexer:
         class: ...\EventListener\BlogPostSearchIndexListener
@@ -774,6 +775,7 @@ be called in here.
 ## Events: Implementation
 
 ```php
+// src/Backend/Modules/Blog/Actions/Add.php
 $this->get('event_dispatcher')->dispatch(
     BlogEvents::POST_SAVED,
     new PostSavedEvent($post)
@@ -818,7 +820,7 @@ class LoadEvents
     {
         $metaId = $database->insert(
             'meta',
-            array('url' => 'event-for-functional-tests')
+            array('url' => 'meet-the-fork-community')
         );
 
         $database->insert(
@@ -826,7 +828,7 @@ class LoadEvents
             array(
                 'language'   => 'en',
                 'meta_id'    => $metaId,
-                'title'      => 'Event for functional tests',
+                'title'      => 'Meet the Fork CMS Community',
                 'start_date' => '2015-03-26',
                 'start_hour' => '19:00,
             )
@@ -869,7 +871,7 @@ class IndexText extends \Common\WebTestCase
             $client->getResponse()->getStatusCode()
         );
         $this->assertContains(
-            'Event for functional tests',
+            'Meet the Fork CMS Community',
             $client->getResponse()->getContent()
         );
     }
@@ -966,7 +968,7 @@ sure our code still works on various php versions.
 ```php
 // assert url after redirect (clicking a link/submitting a form)
 $this->assertStringEndsWith(
-    '/en/events/detail/event-for-functional-tests',
+    '/en/events/detail/meet-the-fork-community',
     $client->getHistory()->current()->getUri()
 );
 ```
@@ -974,7 +976,7 @@ $this->assertStringEndsWith(
 ```php
 // test that the page title contains some words
 $this->assertStringStartsWith(
-    'Event for functional tests',
+    'Meet the Fork CMS Community',
     $crawler->filter('title')->text()
 );
 ```
@@ -984,7 +986,7 @@ $this->assertStringStartsWith(
 $this->assertEquals(
     0,
     $crawler
-        ->filter('html:contains("Event for functional tests")')
+        ->filter('html:contains("Meet the Fork CMS Community")')
         ->count()
 );
 ```
