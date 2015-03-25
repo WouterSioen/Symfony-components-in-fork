@@ -3,7 +3,7 @@ $(document).on('ready', function(){
 
   // load the readme file. This makes it easier to read my presentation without setup
   $("#source").load("README.md");
-  var slideshow = remark.create();
+  window.slideshow = remark.create();
 
   // replace emoji by font awesome icons.
   $('.remark-slides-area .remark-slide-content').each(function(i, item) {
@@ -14,7 +14,6 @@ $(document).on('ready', function(){
         cleanedMatch = match.replace(/:/g, '');
         html = html.replace(match, '<i class="fa fa-' + cleanedMatch + '"></i>');
       });
-      console.log(html);
       $(item).html(html);
     }
   });
