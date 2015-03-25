@@ -210,6 +210,14 @@ class Database
     {
         $this->logger = new Logger();
     }
+
+    public function insert($data)
+    {
+        $this->logger->info(
+            'query executed',
+            array($query, $parameters)
+        );
+    }
 }
 ```
 
@@ -233,6 +241,14 @@ class Database
     public function __construct(Logger $logger)
     {
         $this->logger = $logger;
+    }
+
+    public function insert($data)
+    {
+        $this->logger->info(
+            'query executed',
+            array($query, $parameters)
+        );
     }
 }
 ```
@@ -298,8 +314,6 @@ class MySqlDatabase implements DatabaseInterface
 
     public function insert($data)
     {
-        // execute the query
-
         $this->logger->info(
             'query executed',
             array($query, $parameters)
