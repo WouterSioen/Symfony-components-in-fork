@@ -720,17 +720,13 @@ namespace Backend\Modules\Search\EventListener;
 use Backend\Modules\Blog\Event\PostAddedEvent;
 use Backend\Modules\Search\Engine\Model as SearchModel;
 
-class SearchIndexListener {
-    protected $module;
-
-    public function __construct($module) {
-        $this->module = $module;
-    }
-
-    public function onPostSaved(PostAddedEvent $event) {
-        $post = $event->getPost();
+class SearchIndexListener
+{
+    public function onPostSaved(PostAddedEvent $event)
+    {
+        $post = $event->getBlogPost();
         SearchModel::saveIndex(
-            $this->module,
+            'Blog',
             $post['id'],
             [ 'title' => $post['title'], 'text' => $post['text'] ]
         );
@@ -754,8 +750,6 @@ method receives our event object.
 services:
     blog.search_indexer:
         class: ...\EventListener\BlogPostSearchIndexListener
-        arguments:
-            - "Blog"
         tags:
             -
                 name: kernel.event_listener
